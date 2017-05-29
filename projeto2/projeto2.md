@@ -6,6 +6,8 @@
 <p>Foram utilizados 2 jobs para calcular o PMI, um job ficou responsável em calcular a frequência relativa do termo e a matriz de co-ocorrência, outro job, ficou responsável em ler a saída do job anterior e calcular o PMI</p>
 <p>Descrição job 1:</p>
 <ul>
+	<p>Map</p>
+	
 	<li><p>class MAPPER:</p>
 	<p>method Map (docid a, doc d)</p>
 	<p> linhas = d.getByLines() </p>
@@ -16,7 +18,6 @@
 	<p>	Emit(pair(w, *), 1) //Frequencia por linha</p>
 	<p>	    for all term u pertence linha(x) do</p>
 	<p>	 	Emit(pair(w,u), 1)</p>
-	
 	<p></p></li>
 	<p></p>
 	
@@ -25,22 +26,23 @@
 	<p>  s = 0</p>
 	<p>    for all count c pertence counts[c1,c2,...] do</p>
 	<p>      s = s + c </p>
-	<p>    Emit(pair p, count s)</p>
-	
+	<p>    Emit(pair p, count s)</p>	
 	<p></p>
 	<p></p>
 	<li><p>É necessário um partitioner para garantir que todas as palavras da esquerda vá para o mesmor reduce</p>
+	
 	<p>class PARTITIONER (pair p, value v)</p>
 	<p>   return p.getLeftElement % numReduce </p>
 	<p></p></li>
 	<p></p>
-
+	
 	<li><p>class REDUCER</p>
 	<p>method reduce (pair p, counts[c1,c2,...])</p>
 	<p>  s = 0</p>
 	<p>    for all count c pertence counts[c1,c2,...] do</p>
 	<p>      s = s + c </p>
 	<p>    Emit(pair p, count s)</p></li>
+
 </ul>
 <p></p>
 <p></p>

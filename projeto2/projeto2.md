@@ -109,6 +109,7 @@
 
 <p></p>
 <p></p>
+<p>Foi implementado somente o Pairs</p>
 <p>Questão1. Qual é o tempo de execução da implementação “pairs”? Qual é o tempo de execução da implementação “stripes”? Apresente o tempo médio de 10 execuções de cada uma.</p>
 <p><p/>
    <p>Rodada 1: </p>
@@ -182,8 +183,7 @@
    
    <p>Questão 4. Qual é o par (x,y) com o PMI mais alto? Justifique intuitivamente este resultado. </p>
 	<p>R = ('anjou', 'maine') 3.5900710214945084</p>
-    
-    
+      
     <p>Questão 5. Quais os três termos que têm o PMI mais alto com “life” e “love”? Quais são os valores do PMI?</p>
     <p>R = ('love', 'dearly') 1.1381069306879603</p>
     <p>('love', 'hermia') 0.8523484281664729</p>
@@ -192,3 +192,71 @@
     <p>('life', "man's") 0.9369194656085066</p>
     <p>('life', 'death') 0.6945490488475484</p>
 
+<p></p>
+<p></p>
+
+<p>Arquivo Wikipedia simplewiki-20170520-pages-articles-multistream-index.txt</p>
+<p>Questão 6. Qual é o tempo de execução da implementação “pairs”? Qual é o tempo de execução da implementação “stripes”? Apresente o tempo médio de 10 execuções de cada uma.</p>
+<p><p/>
+   <p>Rodada 1: </p>
+   <p>Job1: 63.92s</p>
+   <p>Job2: 54.48s</p>
+   <p>Rodada 2: </p>
+   <p>Job1: 64.17s</p>
+   <p>Job2: 52.74s</p>
+   <p>Rodada 3: </p>
+   <p>Job1: 64.03s</p>
+   <p>Job2: 53.30s</p>
+   <p>Rodada 4: </p>
+   <p>Job1: 61.48s</p>
+   <p>Job2: 59.62s</p>
+   <p>Rodada 5: </p>
+   <p>Job1: 60.98s</p>
+   <p>Job2: 53.52s</p>
+   <p>Rodada 6: </p>
+   <p>Job1: 63.21s</p>
+   <p>Job2: 53.32s</p>
+   <p>Rodada 7: </p>
+   <p>Job1: 61.37s</p>
+   <p>Job2: 53.4s</p>
+   <p>Rodada 8: </p>
+   <p>Job1: 60.97s</p>
+   <p>Job2: 52.43s</p>
+
+   <p>Média dos tempos: 116.61</p>
+
+<p>Questão 7. Apresente novamente os resultados da Questão 1, mas desta vez com os Combiners desativados.</p>
+   <p>Rodada 1: </p>
+   <p>Job1: 67.93</p>
+   <p>Job2: 57.67</p>
+   <p>Rodada 2: </p>
+   <p>Job1: 66.29</p>
+   <p>Job2: 58.96</p>
+   <p>Rodada 3: </p>
+   <p>Job1: 64.06</p>
+   <p>Job2: 59.32</p>
+   <p>Rodada 4: </p>
+   <p>Job1: 65.31</p>
+   <p>Job2: 56.53</p>
+   <p>Rodada 5: </p>
+   <p>Job1: 63.43</p>
+   <p>Job2: 54.69</p>
+   <p>Rodada 6: </p>
+   <p>Job1: 64.00</p>
+   <p>Job2: 57.48</p>
+   <p>Média dos tempos: 122.61 em segundos</p>
+   
+   <p>Questão 8. Quantos pares distintos de PMI foram extraídos?</p>
+   <p>R = Foram 16956 pares distintos</p>
+   
+   
+   <p>Questão 9. Qual é o par (x,y) com o PMI mais alto? Justifique intuitivamente este resultado. </p>
+	<p>R = ('piña', 'elías') 4.140863701891169</p>
+      
+    <p>Questão 10. Quais os três termos que têm o PMI mais alto com “life” e “love”? Quais são os valores do PMI?</p>
+    <p>R =  Somente duas ocorrências para love</p>
+    	    <p>('love', 'you') 1.7551654070017182 </p>
+            <p>('love', 'with') 1.2624351426466327 </p>
+	   <p>('life', 'save') 1.2311501915646326</p>	
+	   <p>('life', "man's") 0.9369194656085066</p>
+	   <p>('life', 'death') 0.6945490488475484</p>

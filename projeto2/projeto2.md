@@ -182,7 +182,7 @@
    
    
    <p>Questão 4. Qual é o par (x,y) com o PMI mais alto? Justifique intuitivamente este resultado. </p>
-	<p>R = ('anjou', 'maine') 3.5900710214945084</p>
+	<p>R = ('anjou', 'maine') 3.5900710214945084, Anjou e Maine são dois países citados por Shakespeare, a intuição é que diversas vezes que o autor iria falar de Anjou ou de Maine, citava o outro também, e isso ocorreu por 12 vezes no texo</p>
       
     <p>Questão 5. Quais os três termos que têm o PMI mais alto com “life” e “love”? Quais são os valores do PMI?</p>
     <p>R = ('love', 'dearly') 1.1381069306879603</p>
@@ -191,7 +191,6 @@
     <p>('life', 'save') 1.2311501915646326</p>
     <p>('life', "man's") 0.9369194656085066</p>
     <p>('life', 'death') 0.6945490488475484</p>
-
 <p></p>
 <p></p>
 
@@ -272,7 +271,7 @@
    
    
    <p>Questão 9. Qual é o par (x,y) com o PMI mais alto? Justifique intuitivamente este resultado. </p>
-	<p>R = ('piña', 'elías') 4.140863701891169</p>
+	<p>R = ('piña', 'elías') 4.140863701891169, é uma província da República Dominacana, e durante o texto são citados muitos municípios dessa província, como tem nome composto é são duas palavras com bastante associação</p>
       
     <p>Questão 10. Quais os três termos que têm o PMI mais alto com “life” e “love”? Quais são os valores do PMI?</p>
     <p>R =  Somente duas ocorrências para love</p>

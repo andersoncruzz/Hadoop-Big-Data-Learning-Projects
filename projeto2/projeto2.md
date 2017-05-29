@@ -6,20 +6,18 @@
 <p>Foram utilizados 2 jobs para calcular o PMI, um job ficou responsável em calcular a frequência relativa do termo e a matriz de co-ocorrência, outro job, ficou responsável em ler a saída do job anterior e calcular o PMI</p>
 <p>Descrição job 1:</p>
 <ul>
-	<p>Map</p>
+	<p>Job1</p>
 	
-	<li><p>class MAPPER:</p>
-	<p>method Map (docid a, doc d)</p>
-	<p> linhas = d.getByLines() </p>
-	<p> linhas = linhas.removerPalavrasRepetidasPorLinha() </p>
-	<p>   for all linha(x) pertence linhas do</p>
-	<p>    Counter.increment //Contador para quantidade de linha</p>
-	<p>    for all term w pertence linha(x) do</p>
-	<p>	Emit(pair(w, *), 1) //Frequencia por linha</p>
-	<p>	    for all term u pertence linha(x) do</p>
-	<p>	 	Emit(pair(w,u), 1)</p>
-	<p></p></li>
-	<p></p>
+	class MAPPER:
+	method Map (docid a, doc d)
+	   linhas = d.getByLines()
+	     linhas = linhas.removerPalavrasRepetidasPorLinha()
+	       for all linha(x) pertence linhas do
+	         Counter.increment //Contador para quantidade de linha
+	           for all term w pertence linha(x) do
+		     Emit(pair(w, *), 1) //Frequencia por linha
+		      for all term u pertence linha(x) do
+		 	 Emit(pair(w,u), 1)
 	
 	<p>class COMBINER</p>
 	<p>method Combiner (pair p, counts[c1,c2,...])</p>
@@ -50,6 +48,8 @@
 <p>Configurei no Driver para no Job 2, existir apenas 1 reducer, ou seja, irá ler a saída de todos os mapers, é como um merge da saída anterior</p>
 <p>Descrição job 2:</p>
 <ul>
+	<p>Jobs</p>
+	
 	<li><p>class MAPPER:</p>
 	<p>method Map (docid a, doc d)</p>
 	<p> linhas = d.getByLines() </p>

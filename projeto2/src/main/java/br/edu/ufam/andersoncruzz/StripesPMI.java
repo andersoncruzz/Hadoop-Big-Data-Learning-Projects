@@ -19,8 +19,11 @@ package br.edu.ufam.andersoncruzz;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.DoubleWritable;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
@@ -34,7 +37,10 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import org.kohsuke.args4j.ParserProperties;
 
+import br.edu.ufam.andersoncruzz.MatrixPairs.CounterLinesFile;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -51,36 +57,42 @@ import java.util.List;
  *
  * @author Jimmy Lin
  */
-public class BkpOfMatrixStripes extends Configured implements Tool {
-  private static final Logger LOG = Logger.getLogger(BkpOfMatrixStripes.class);
+public class StripesPMI extends Configured implements Tool {
+  private static final Logger LOG = Logger.getLogger(StripesPMI.class);
 
+  public static enum CounterLinesFile {
+	  	numberOfLine
+	  }; 
+
+  
   private static final class MyMapper extends Mapper<LongWritable, Text, Text, HMapStIW> {
     private static final HMapStIW MAP = new HMapStIW();
     private static final Text KEY = new Text();
 
-    private int window = 2;
-
-    @Override
-    public void setup(Context context) {
-      window = context.getConfiguration().getInt("window", 2);
-    }
-
     @Override
     public void map(LongWritable key, Text value, Context context)
         throws IOException, InterruptedException {
-      List<String> tokens = Tokenizer.tokenize(value.toString());
 
-      for (int i = 0; i < tokens.size(); i++) {
-        MAP.clear();
-        for (int j = Math.max(i - window, 0); j < Math.min(i + window + 1, tokens.size()); j++) {
-          if (i == j) continue;
-          MAP.increment(tokens.get(j));
-        }
+  	String valueTxt = value.toString();
+  	String lines[] = valueTxt.split("\n");
+  			
+  	for (int k=0; k < lines.length; k++) {
 
-        KEY.set(tokens.get(i));
-        context.write(KEY, MAP);
-      }
-    }
+  		List<String> tokens = Tokenizer.tokenize(lines[k]);    		
+  		
+  		if (tokens.size() > 1) context.getCounter(CounterLinesFile.numberOfLine).increment(1);
+  		for (int i = 0; i < tokens.size(); i++) {
+  			MAP.clear();
+  			for (int j = 0; j < tokens.size(); j++) {
+  	          if (!tokens.get(i).equals(tokens.get(j)))
+  				MAP.increment(tokens.get(j));
+  			}
+  			
+  			KEY.set(tokens.get(i));
+  	        context.write(KEY, MAP);
+  			}
+  		}
+  	}
   }
 
   private static final class MyReducer extends Reducer<Text, HMapStIW, Text, HMapStIW> {
@@ -98,10 +110,79 @@ public class BkpOfMatrixStripes extends Configured implements Tool {
     }
   }
 
+ /* private static final class MyPMIMapper extends Mapper<LongWritable, Text, Text, HMapStIW> {
+	//    private static final Text VALUE = new Text();
+	  //  private static final Text KEY = new Text();
+
+	    @Override
+	    public void map(LongWritable key, Text value, Context context)
+	        throws IOException, InterruptedException {
+
+	    //context.write(key, value);	
+	  	String valueTxt = value.toString();
+	  	String lines[] = valueTxt.split("\n");
+	  			
+	  	for (int k=0; k < lines.length; k++) {    		
+	  		List<String> listTerm = tokenizerStripes(lines[k]);
+	  		
+	  		for (int i = 0; i < listTerm.size(); i++) {
+	  			MAP.clear();
+	  			for (int j = 0; j <.size(); j++) {
+	  	          if (!tokens.get(i).equals(tokens.get(j)))
+	  				MAP.increment(tokens.get(j));
+	  			}
+	  			
+	  			KEY.set(tokens.get(i));
+	  	        context.write(KEY, MAP);
+	  			}
+	  		}
+
+	  		
+	  		//context.write(KEY, VALUE);
+	  		}
+	 
+	  	}
+	    public List <String> tokenizerStripes (String str) {
+	      	String[] vectorstr = str.split("\\s+");
+	    		List <String> listTerm = new ArrayList<String>();
+	      	for (int i=0; i<vectorstr.length; i++) {
+	      		String aux = vectorstr[i];
+	      		if (aux.contains(","))
+	      			aux = aux.replace(",", "");
+	      		if (aux.contains("{"))
+	      			aux = aux.replace("{", "");
+	      		if (aux.contains("}"))
+	      			aux = aux.replace("}", "");
+	      		listTerm.add(aux);
+	      	}
+	      	
+	    		return listTerm;
+	    	}
+
+	    
+  }
+  
+	  private static final class MyPMIReducer extends Reducer<Text, HMapStIW, Text, HMapStIW> {
+		  
+		  @Override
+		 public void reduce(Text key, Iterable<HMapStIW> values, Context context)
+		        throws IOException, InterruptedException {
+		      Iterator<HMapStIW> iter = values.iterator();
+		      HMapStIW map = new HMapStIW();
+
+		      while (iter.hasNext()) {
+		        map.plus(iter.next());
+		      }
+
+		      context.write(key, map);
+		    }
+	  }	  
+*/
+  
   /**
    * Creates an instance of this tool.
    */
-  private BkpOfMatrixStripes() {}
+  private StripesPMI() {}
 
   private static final class Args {
     @Option(name = "-input", metaVar = "[path]", required = true, usage = "input path")
@@ -113,8 +194,6 @@ public class BkpOfMatrixStripes extends Configured implements Tool {
     @Option(name = "-reducers", metaVar = "[num]", usage = "number of reducers")
     int numReducers = 1;
 
-    @Option(name = "-window", metaVar = "[num]", usage = "cooccurrence window")
-    int window = 2;
   }
 
   /**
@@ -135,18 +214,15 @@ public class BkpOfMatrixStripes extends Configured implements Tool {
     LOG.info("Tool: " + MatrixPairs.class.getSimpleName());
     LOG.info(" - input path: " + args.input);
     LOG.info(" - output path: " + args.output);
-    LOG.info(" - window: " + args.window);
     LOG.info(" - number of reducers: " + args.numReducers);
 
     Job job = Job.getInstance(getConf());
-    job.setJobName(BkpOfMatrixStripes.class.getSimpleName());
-    job.setJarByClass(BkpOfMatrixStripes.class);
+    job.setJobName(StripesPMI.class.getSimpleName());
+    job.setJarByClass(StripesPMI.class);
 
     // Delete the output directory if it exists already.
     Path outputDir = new Path(args.output);
     FileSystem.get(getConf()).delete(outputDir, true);
-
-    job.getConfiguration().setInt("window", args.window);
 
     job.setNumReduceTasks(args.numReducers);
 
@@ -166,6 +242,38 @@ public class BkpOfMatrixStripes extends Configured implements Tool {
     job.waitForCompletion(true);
     System.out.println("Job Finished in " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");
 
+    Counters jobCntrs = job.getCounters();
+    int numberOflines = (int) jobCntrs.findCounter(CounterLinesFile.numberOfLine).getValue();
+    System.out.println("CONTADOR DE LINHAS: " + numberOflines);
+
+
+    System.out.println("OUTRO JOB EM EXECUÇÃO: ");
+ /*   
+    Job job2 = Job.getInstance(getConf());
+    job2.setJobName("Calculando PMI");
+    job2.setJarByClass(MatrixPairs.class);
+
+    job2.getConfiguration().setInt("numberOfLines", numberOflines);
+
+    job2.setNumReduceTasks(1);
+
+    FileInputFormat.addInputPaths(job2, args.output);
+    FileOutputFormat.setOutputPath(job2, new Path(args.output+"/PMI"));
+    
+    job2.setMapOutputKeyClass(Text.class);
+    job2.setMapOutputValueClass(HMapStIW.class);
+    job2.setOutputKeyClass(Text.class);
+    job2.setOutputValueClass(HMapStIW.class);
+
+    job2.setMapperClass(MyPMIMapper.class);
+    job2.setReducerClass(MyPMIReducer.class);
+    
+    startTime = System.currentTimeMillis();
+    job2.waitForCompletion(true);
+    System.out.println("Job Finished in " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");    
+    */
+    
+    
     return 0;
   }
 
@@ -176,6 +284,6 @@ public class BkpOfMatrixStripes extends Configured implements Tool {
    * @throws Exception if tool encounters an exception
    */
   public static void main(String[] args) throws Exception {
-    ToolRunner.run(new BkpOfMatrixStripes(), args);
+    ToolRunner.run(new StripesPMI(), args);
   }
 }

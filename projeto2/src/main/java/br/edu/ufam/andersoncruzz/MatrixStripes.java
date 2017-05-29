@@ -110,7 +110,7 @@ public class MatrixStripes extends Configured implements Tool {
     }
   }
 
-  private static final class MyPMIMapper extends Mapper<LongWritable, Text, Text, HMapStIW> {
+ /* private static final class MyPMIMapper extends Mapper<LongWritable, Text, Text, HMapStIW> {
 	//    private static final Text VALUE = new Text();
 	  //  private static final Text KEY = new Text();
 
@@ -127,7 +127,7 @@ public class MatrixStripes extends Configured implements Tool {
 	  		
 	  		for (int i = 0; i < listTerm.size(); i++) {
 	  			MAP.clear();
-	  			for (int j = 0; j < listTerm.size(); j++) {
+	  			for (int j = 0; j <.size(); j++) {
 	  	          if (!tokens.get(i).equals(tokens.get(j)))
 	  				MAP.increment(tokens.get(j));
 	  			}
@@ -177,7 +177,7 @@ public class MatrixStripes extends Configured implements Tool {
 		      context.write(key, map);
 		    }
 	  }	  
-
+*/
   
   /**
    * Creates an instance of this tool.
@@ -248,7 +248,7 @@ public class MatrixStripes extends Configured implements Tool {
 
 
     System.out.println("OUTRO JOB EM EXECUÇÃO: ");
-    
+ /*   
     Job job2 = Job.getInstance(getConf());
     job2.setJobName("Calculando PMI");
     job2.setJarByClass(MatrixPairs.class);
@@ -271,7 +271,7 @@ public class MatrixStripes extends Configured implements Tool {
     startTime = System.currentTimeMillis();
     job2.waitForCompletion(true);
     System.out.println("Job Finished in " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");    
-    
+    */
     
     
     return 0;

@@ -222,10 +222,17 @@
    <p>Rodada 8: </p>
    <p>Job1: 60.97s</p>
    <p>Job2: 52.43s</p>
+   <p>Rodada 9: </p>
+   <p>Job1: 63.15s</p>
+   <p>Job2: 55.44s</p>
+   <p>Rodada 10: </p>
+   <p>Job1: 61.97s</p>
+   <p>Job2: 54.57s</p>
 
-   <p>Média dos tempos: 116.61</p>
 
-<p>Questão 7. Apresente novamente os resultados da Questão 1, mas desta vez com os Combiners desativados.</p>
+   <p>Média dos tempos: 116.8 em segundos</p>
+
+<p>Questão 7. Apresente novamente os resultados da Questão 6, mas desta vez com os Combiners desativados.</p>
    <p>Rodada 1: </p>
    <p>Job1: 67.93</p>
    <p>Job2: 57.67</p>
@@ -244,7 +251,21 @@
    <p>Rodada 6: </p>
    <p>Job1: 64.00</p>
    <p>Job2: 57.48</p>
-   <p>Média dos tempos: 122.61 em segundos</p>
+   <p>Rodada 7: </p>
+   <p>Job1: 64.00</p>
+   <p>Job2: 57.48</p>
+   <p>Rodada 8: </p>
+   <p>Job1: 69.39</p>
+   <p>Job2: 56.66</p>
+   <p>Rodada 9: </p>
+   <p>Job1: 62.19</p>
+   <p>Job2: 55.43</p>
+   <p>Rodada 10: </p>
+   <p>Job1: 62.05</p>
+   <p>Job2: 55.47</p>
+
+
+   <p>Média dos tempos: 121.83 em segundos</p>
    
    <p>Questão 8. Quantos pares distintos de PMI foram extraídos?</p>
    <p>R = Foram 16956 pares distintos</p>

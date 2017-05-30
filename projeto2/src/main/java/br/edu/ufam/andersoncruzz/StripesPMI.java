@@ -27,6 +27,7 @@ import org.apache.hadoop.mapreduce.Counters;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
+import org.apache.hadoop.mapreduce.Reducer.Context;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
@@ -37,12 +38,15 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import org.kohsuke.args4j.ParserProperties;
 
+import br.edu.ufam.andersoncruzz.MapKI.Entry;
 import br.edu.ufam.andersoncruzz.MatrixPairs.CounterLinesFile;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -83,6 +87,7 @@ public class StripesPMI extends Configured implements Tool {
   		if (tokens.size() > 1) context.getCounter(CounterLinesFile.numberOfLine).increment(1);
   		for (int i = 0; i < tokens.size(); i++) {
   			MAP.clear();
+  			MAP.increment(tokens.get(i));
   			for (int j = 0; j < tokens.size(); j++) {
   	          if (!tokens.get(i).equals(tokens.get(j)))
   				MAP.increment(tokens.get(j));
@@ -110,10 +115,13 @@ public class StripesPMI extends Configured implements Tool {
     }
   }
 
- /* private static final class MyPMIMapper extends Mapper<LongWritable, Text, Text, HMapStIW> {
+  private static final class MyPMIMapper extends Mapper<LongWritable, Text, Text, HMapStIW> {
 	//    private static final Text VALUE = new Text();
 	  //  private static final Text KEY = new Text();
+	    private static final HMapStIW MAP = new HMapStIW();
+	    private static final Text KEY = new Text();
 
+	  
 	    @Override
 	    public void map(LongWritable key, Text value, Context context)
 	        throws IOException, InterruptedException {
@@ -123,29 +131,71 @@ public class StripesPMI extends Configured implements Tool {
 	  	String lines[] = valueTxt.split("\n");
 	  			
 	  	for (int k=0; k < lines.length; k++) {    		
-	  		List<String> listTerm = tokenizerStripes(lines[k]);
-	  		
-	  		for (int i = 0; i < listTerm.size(); i++) {
-	  			MAP.clear();
-	  			for (int j = 0; j <.size(); j++) {
-	  	          if (!tokens.get(i).equals(tokens.get(j)))
-	  				MAP.increment(tokens.get(j));
-	  			}
+	  		//List<String> listTerm = tokenizerStripes(lines[k]);
+	  		//List<Key_value> listTerm = tokenizerStripes(lines[k]);
+	  		Stripe stripe = tokenizerStripes(lines[k]);
+	  		MAP.clear();
+	  		//MAP.increment(stripe.getKey());
+	  		for (int i = 0; i < stripe.getListValue().size(); i++) {
+	  			//MAP.increment(listTerm.get(j));
+	  	        MAP.put(stripe.getListValue().get(i).key, stripe.getListValue().get(i).value);
+	  		}
 	  			
-	  			KEY.set(tokens.get(i));
-	  	        context.write(KEY, MAP);
-	  			}
+	  		KEY.set(stripe.getKey());
+	  	    context.write(KEY, MAP);
 	  		}
-
-	  		
-	  		//context.write(KEY, VALUE);
-	  		}
-	 
 	  	}
-	    public List <String> tokenizerStripes (String str) {
+  }
+
+  public static Stripe tokenizerStripes (String str) {
+  		Stripe stripe = new Stripe();
+	  	String[] vectorstr = str.split("\\s+");
+		//List <Key_value> listTerm = new ArrayList<Key_value>();
+		stripe.setKey(vectorstr[0]);
+		
+		for (int i=1; i<vectorstr.length; i++) {
+			String aux = vectorstr[i];
+			if (aux.contains(","))
+				aux = aux.replace(",", "");
+			if (aux.contains("{"))
+				aux = aux.replace("{", "");
+			if (aux.contains("}"))
+				aux = aux.replace("}", "");
+			String[] str_aux = aux.split("=");
+			if (str_aux.length >= 2){
+				stripe.addKeyValue(str_aux[0], Integer.parseInt(str_aux[1]));
+			//Key_value obj = new Key_value(str_aux[0], Integer.parseInt(str_aux[1]));
+			//listTerm.add(obj);
+			}
+		}
+  	
+		return stripe;
+}
+
+  
+/*  public static List <Key_value> tokenizerStripes (String str) {
+    	String[] vectorstr = str.split("\\s+");
+  		List <Key_value> listTerm = new ArrayList<Key_value>();
+    	for (int i=1; i<vectorstr.length; i++) {
+    		String aux = vectorstr[i];
+    		if (aux.contains(","))
+    			aux = aux.replace(",", "");
+    		if (aux.contains("{"))
+    			aux = aux.replace("{", "");
+    		if (aux.contains("}"))
+    			aux = aux.replace("}", "");
+    		String[] str_aux = aux.split("=");
+    		Key_value obj = new Key_value(str_aux[0], Integer.parseInt(str_aux[1]));
+    		listTerm.add(obj);
+    	}
+    	
+  		return listTerm;
+  }
+
+  	public static List <String> tokenizerStripes2 (String str) {
 	      	String[] vectorstr = str.split("\\s+");
 	    		List <String> listTerm = new ArrayList<String>();
-	      	for (int i=0; i<vectorstr.length; i++) {
+	      	for (int i=1; i<vectorstr.length; i++) {
 	      		String aux = vectorstr[i];
 	      		if (aux.contains(","))
 	      			aux = aux.replace(",", "");
@@ -157,14 +207,15 @@ public class StripesPMI extends Configured implements Tool {
 	      	}
 	      	
 	    		return listTerm;
-	    	}
-
-	    
-  }
-  
-	  private static final class MyPMIReducer extends Reducer<Text, HMapStIW, Text, HMapStIW> {
+	    }
+  */
+	  private static final class MyPMIReducer extends Reducer<Text, HMapStIW, Text, Text> {
 		  
-		  @Override
+		 private static Map<String, HMapStIW> termTotals = new HashMap<String, HMapStIW>();
+		 private static final Text KEY = new Text();
+		 private static final Text VALUE = new Text();
+		 
+		 @Override
 		 public void reduce(Text key, Iterable<HMapStIW> values, Context context)
 		        throws IOException, InterruptedException {
 		      Iterator<HMapStIW> iter = values.iterator();
@@ -173,11 +224,87 @@ public class StripesPMI extends Configured implements Tool {
 		      while (iter.hasNext()) {
 		        map.plus(iter.next());
 		      }
-
-		      context.write(key, map);
+		      termTotals.put(key.toString(), map);
+		      //context.write(key, map);
 		    }
-	  }	  
-*/
+		  
+			@Override
+		    public void cleanup(Context context) throws IOException, InterruptedException{
+				List <String> listKey = new ArrayList<String>(termTotals.keySet());
+				int numberOflines = context.getConfiguration().getInt("numberOfLines", 0);
+				Map<String, Stripe> terms = new HashMap<String, Stripe>();
+				
+				for (int i=0; i<listKey.size(); i++) {
+					String pairstr = listKey.get(i);
+					HMapStIW map = termTotals.get(pairstr);
+					
+					String striper = map.toString();
+					terms.put(pairstr, tokenizerStripes(striper));						
+				}
+				
+				for (int i=0; i<terms.size(); i++) {
+					String pxkey = listKey.get(i);
+					
+					Stripe px = terms.get(pxkey);
+			  		int probx = 0;
+					for (int j = 0; j < px.getListValue().size(); j++) {
+						if (px.getListValue().get(j).key.equals(pxkey)) probx = px.getListValue().get(j).value; 
+					}
+					
+					int proby = 0;
+					int probxy = 0;
+					
+					String str = "{";
+					for (int j = 0; j < px.getListValue().size(); j++) {
+						if (px.getListValue().get(j).key != pxkey ){ 
+							probxy = px.getListValue().get(j).value;
+							Stripe py = terms.get(px.getListValue().get(j).key);
+							for (int s = 0; s < py.getListValue().size(); s++) {
+								if (py.getListValue().get(s).key.equals(py.getKey())) proby = py.getListValue().get(s).value; 
+							}
+							
+							//double pmi = Math.log10((probxy/numberOflines)/((probx/numberOflines) * (proby/numberOflines)));
+							str = str + py.getKey() + "=" + String.valueOf(probxy) + "-" + String.valueOf(probx) + "-" +  String.valueOf(proby)+ ", ";
+						}
+			  		}
+					
+					str = str.substring(0, str.length()-2) + "}";
+					KEY.set(pxkey);
+					VALUE.set(str);
+					context.write(KEY, VALUE);
+					
+				}
+			
+			/*	    Iterator<Entry<String>> k = map.entrySet().iterator();
+				    while (i.hasNext()) {
+				       k.next();
+				      HMapStIW key = e.getKey();
+				      int value = e.getValue();
+					
+					
+					
+					
+					for (int j=0; j<values.size(); j++){
+						map.;
+						if (!pairs[1].equals("*") && termTotals.get(pairstr).doubleValue() >= 10){
+						double probabilidadePar = termTotals.get(pairstr).doubleValue()/numberOflines;
+						double probabilidadeElemEsq = map.get(pairstr)/numberOflines;
+						double probabilidadeElemDir	= termTotals.get(elemDir+",*").doubleValue()/numberOflines;
+
+						double pmi = Math.log10(probabilidadePar/ (probabilidadeElemEsq * probabilidadeElemDir));
+						PairOfStrings key = new PairOfStrings(elemEsq, elemDir);
+						VALOR.set(pmi);
+						context.write(key, VALOR);
+					}
+				  }*/
+				//}
+	  				
+			}
+
+		  }
+	  
+	 
+	  
   
   /**
    * Creates an instance of this tool.
@@ -248,7 +375,7 @@ public class StripesPMI extends Configured implements Tool {
 
 
     System.out.println("OUTRO JOB EM EXECUÇÃO: ");
- /*   
+    
     Job job2 = Job.getInstance(getConf());
     job2.setJobName("Calculando PMI");
     job2.setJarByClass(MatrixPairs.class);
@@ -271,7 +398,7 @@ public class StripesPMI extends Configured implements Tool {
     startTime = System.currentTimeMillis();
     job2.waitForCompletion(true);
     System.out.println("Job Finished in " + (System.currentTimeMillis() - startTime) / 1000.0 + " seconds");    
-    */
+    
     
     
     return 0;

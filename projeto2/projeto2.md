@@ -109,7 +109,112 @@
 
 <p></p>
 <p></p>
-<p>Foi implementado somente o Pairs</p>
+
+<p>Implementação Stripes:</p>
+<p>Foram utilizados 2 jobs para calcular o PMI, um job ficou responsável em calcular a frequência relativa do termo e a matriz de co-ocorrência, outro job, ficou responsável em ler a saída do job anterior seria para calcular o PMI, porém, dentro do Reduce desse Job de cálculo do PMI não estou conseguindo recuperar uma probabilidade</p>
+<p>Descrição job 1:</p>
+<ul>
+	<p>Job1</p>
+	
+	class MAPPER:
+	method Map (docid a, doc d)
+	   linhas = d.getByLines()
+	     linhas = linhas.removerPalavrasRepetidasPorLinha()
+	       for all linha(x) pertence linhas do
+	         Counter.increment //Contador para quantidade de linha
+		 H = new AssociativeArray
+		 H{propiotermo} = H{propiotermo} + 1 //Consegue contar quantidade do proprio termo por linha
+	           for all term w pertence linha(x) do
+		     H{w} = H{w} + 1
+		   Emit(term w, stripe H)
+	
+	class COMBINER
+	  method Combiner (term w, stripes[H1,H2,...])
+            Hf = new associativearray
+	     for all stripe H pertence stripe[H1,H2,...] do
+	       sum (Hf, H)
+	     Emit(term H, stripe Hf)
+		
+	 class REDUCER
+          Hf = new associativearray
+	     for all stripe H pertence stripe[H1,H2,...] do
+	       sum (Hf, H)
+	     Emit(term H, stripe Hf)
+
+</ul>
+<p></p>
+<p></p>
+<p></p>
+<p>Configurei no Driver para no Job 2, existir apenas 1 reducer, ou seja, irá ler a saída de todos os mapers, é como um merge da saída anterior</p>
+<p>Descrição job 2:</p>
+<ul>
+	<p>Jobs</p>
+	
+	class MAPPER:
+	  method Map (docid a, doc d)
+	    linhas = d.getByLines() 
+	     for all linha(x) pertence linhas do
+	 	Stripes H = converterToStripe(linha(x))
+		Emit(Stripe.key, Stripe.value) //somente repassa o par a chave para o reduce
+	
+	<p></p>
+	<p></p>
+	<p></p>
+	<li><p></p>
+	<p>Como toda a saída do job 1 está no reduce do job 2, usei o padrão in-mapper combining para ir salvando as frequências relativas e co-ocorrências, e somente depois de ter lido toda a saída do map é calculado o PMI no cleanup</p>
+	<p></p>
+	
+	class REDUCER
+	   method Setup()
+	      termTotals = initialize HashMap()
+	   method Reduce(pair [p1,p2,p3], counts[value1,value2,value3])
+	     for all Stripe H do
+	       HashMap.add = H
+	   method Cleanup()
+	    numberOflines = getCounter //Pegar o Counter do Job 1
+	      for all item stripe pertence HashMap do
+	        for all x pertecentem ao stripe
+	           probpair = stripe(x).value/numberOflines
+	           probpairEsq = stripe(item).value/numberOflines
+	           probpairDir = Search(stripe(x).value)/numberOflines //vai buscar o valor da frequencia do outro termo no seu proprio stripe
+	           PMI = Log10(probpair / (probEsq*probDir)) 
+	       	   stripe(x) = pmi
+	       Emit(item, stripe)
+</ul>
+
+<ul>
+
+  <p>Job 1 </p>
+   
+   Map - Entrada (LongWritable, Text)
+   Map - Saída (PairOfStrings, IntWritable)
+   Combiner - Entrada (PairOfStrings, IntWritable)
+   Combiner - Saída (PairOfStrings, IntWritable)
+   Partitioner - Entrada (PairOfStrings, IntWritable)
+   Reducer - Entrada (PairOfStrings, IntWritable)
+   Reducer - Saída(PairOfStrings, IntWritable)
+
+
+</ul>
+
+<ul>
+
+  <p>Job 2 </p>
+   
+   Map - Entrada (LongWritable, Text)
+   Map - Saída (PairOfStrings, IntWritable)
+   Reducer - Entrada (PairOfStrings, IntWritable)
+   Reducer - Saída(PairOfStrings, IntWritable)
+
+
+</ul>
+
+
+<p></p>
+<p></p>
+
+
+
 <p>Questão1. Qual é o tempo de execução da implementação “pairs”? Qual é o tempo de execução da implementação “stripes”? Apresente o tempo médio de 10 execuções de cada uma.</p>
 <p><p/>
    <p>Rodada 1: </p>

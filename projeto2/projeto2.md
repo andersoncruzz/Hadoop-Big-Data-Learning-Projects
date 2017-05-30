@@ -188,12 +188,11 @@
   <p>Job 1 </p>
    
    Map - Entrada (LongWritable, Text)
-   Map - Saída (PairOfStrings, IntWritable)
-   Combiner - Entrada (PairOfStrings, IntWritable)
-   Combiner - Saída (PairOfStrings, IntWritable)
-   Partitioner - Entrada (PairOfStrings, IntWritable)
-   Reducer - Entrada (PairOfStrings, IntWritable)
-   Reducer - Saída(PairOfStrings, IntWritable)
+   Map - Saída (Text, Stripe)
+   Combiner - Entrada (Text, Stripe)
+   Combiner - Saída (Text, Stripe)
+   Reducer - Entrada (Text, Stripe)
+   Reducer - Saída(Text, Stripe)
 
 
 </ul>
@@ -203,9 +202,9 @@
   <p>Job 2 </p>
    
    Map - Entrada (LongWritable, Text)
-   Map - Saída (PairOfStrings, IntWritable)
-   Reducer - Entrada (PairOfStrings, IntWritable)
-   Reducer - Saída(PairOfStrings, IntWritable)
+   Map - Saída (Text, Stripe)
+   Reducer - Entrada (Text, Stripe)
+   Reducer - Saída(Text, Stripe)
 
 
 </ul>

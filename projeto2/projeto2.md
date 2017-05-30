@@ -3,7 +3,7 @@
 <p>email: aac@icomp.ufam.edu.br</p>
 <p></p>
 <p>Implementação Pairs:</p>
-<p>Foram utilizados 2 jobs para calcular o PMI, um job ficou responsável em calcular a frequência relativa do termo e a matriz de co-ocorrência, outro job, ficou responsável em ler a saída do job anterior e calcular o PMI</p>
+<p>Foram utilizados 2 jobs para calcular o PMI, um job ficou responsável em calcular a frequência relativa do termo, número de linhas do arquivo e a matriz de co-ocorrência, outro job, ficou responsável em ler a saída do job anterior e calcular o PMI</p>
 <p>Descrição job 1:</p>
 <ul>
 	<p>Job1</p>
@@ -111,7 +111,8 @@
 <p></p>
 
 <p>Implementação Stripes:</p>
-<p>Foram utilizados 2 jobs para calcular o PMI, um job ficou responsável em calcular a frequência relativa do termo e a matriz de co-ocorrência, outro job, ficou responsável em ler a saída do job anterior seria para calcular o PMI, porém, dentro do Reduce desse Job de cálculo do PMI não estou conseguindo recuperar uma probabilidade</p>
+<p>Foram utilizados 2 jobs para calcular o PMI, um job ficou responsável em calcular a frequência relativa do termo, a matriz de co-ocorrência e o número de linhas do arquivo, outro job, ficou responsável em ler a saída do job anterior e seria para calcular o PMI, porém, dentro do Reduce desse Job está com um bug, consegue dentro do stripe x ler P(x)(y), ler P(x) que é salvo no próprio stripe, mas está com um bug e não consegue ler P(y) que seria buscar no stripe y</p>
+
 <p>Descrição job 1:</p>
 <ul>
 	<p>Job1</p>

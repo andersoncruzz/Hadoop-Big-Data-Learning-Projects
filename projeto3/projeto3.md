@@ -1,3 +1,6 @@
+Foi utilizado o pseudo código da versão 3 dos slides para fazer a lista invertida.
+
+
 Questão 1. Qual é o tamanho do seu índice comprimido para a 1a. coleção?
 <p>
 R = Com 5 reducers:

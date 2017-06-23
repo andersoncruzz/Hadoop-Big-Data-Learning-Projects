@@ -63,11 +63,14 @@ public class BuildPageRankPersonalizedRecords extends Configured implements Tool
     private static final IntWritable nid = new IntWritable();
     private static final PageRankNode node = new PageRankNode();
     private static String source = "";
+    private static int num = 0;
+    
     @Override
     public void setup(Mapper<LongWritable, Text, IntWritable, PageRankNode>.Context context) {
       int n = context.getConfiguration().getInt(NODE_CNT_FIELD, 0);
       String[] vsource = context.getConfiguration().getStrings(SOURCE);
       source = vsource[0];
+      num = n;
       
       if (n == 0) {
         throw new RuntimeException(NODE_CNT_FIELD + " cannot be 0!");
@@ -75,7 +78,7 @@ public class BuildPageRankPersonalizedRecords extends Configured implements Tool
       node.setType(PageRankNode.Type.Complete);
       //node.setPageRank((float) -StrictMath.log(Float.NEGATIVE_INFINITY));
       //node.setPageRank((float) 0);
-      node.setPageRank((float) -StrictMath.log(93));
+      node.setPageRank((float) -StrictMath.log(n));
     }
 
     @Override
@@ -115,7 +118,7 @@ public class BuildPageRankPersonalizedRecords extends Configured implements Tool
 
       context.write(nid, node);
       
-      node.setPageRank((float) -StrictMath.log(93));
+      node.setPageRank((float) -StrictMath.log(num));
       
     }
   }

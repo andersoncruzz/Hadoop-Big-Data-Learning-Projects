@@ -1,0 +1,4 @@
+Number of components: 1
+Number of edges: 195
+Number of nodes: 93
+Random jump factor: 0.15

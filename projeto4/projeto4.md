@@ -19,7 +19,7 @@ Este programa RunPageRankPersonalizedBasic não está funcionando como deveria.
 Tentei adicionar a fórmula do teletransporte 1/|S| como diz nos artigos indicados, para o jump ir para o "source",
 e não para qualquer caminho aleatório.
 
-Acredito que não está funcionando adequadamente por não conseguir calcular corretamente a massa perdida e distribuir essa
+Acredito que não está funcionando adequadamente por não está calculando corretamente a massa perdida e distribuir essa
 massa perdida somente para o nó "source", como indicado por Lin.
 
 $ hadoop jar target/projeto4-1.0-SNAPSHOT-fatjar.jar br.edu.ufam.andersoncruzz.ExtractTopPersonalizedPageRankNodes -input smallppg/iter0020 -output smallppgrank_extracted

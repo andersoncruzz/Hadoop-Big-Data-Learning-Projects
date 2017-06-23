@@ -107,8 +107,11 @@ public class ExtractTopPersonalizedPageRankNodes extends Configured implements T
       FloatWritable value = new FloatWritable();
 
       for (PairOfObjectFloat<Integer> pair : queue.extractAll()) {
-        key.set(pair.getLeftElement());
-        value.set(pair.getRightElement());
+        
+    	float aux = pair.getRightElement();
+    	aux =  (float) (Math.exp(aux) / (1 + Math.exp(aux)));
+    	key.set(pair.getLeftElement());
+        value.set(aux);
         context.write(key, value);
       }
     }

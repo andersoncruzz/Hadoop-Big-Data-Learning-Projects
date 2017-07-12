@@ -1,0 +1,218 @@
+instance: 1 label: pos
+
+aposterioriPos: -17.51324396820354 aposterioriNeg: -20.42901039145913
+probabilitesPos: 0.46157626276477376 probabilitesNeg: 0.5384237372352262
+CLASSIFICACAO POSITIVA COM 53.84237372352262%
+
+
+
+instance: 2 label: pos
+
+aposterioriPos: -40.30675064525854 aposterioriNeg: -46.67079311406394
+probabilitesPos: 0.46341560020126865 probabilitesNeg: 0.5365843997987313
+CLASSIFICACAO POSITIVA COM 53.65843997987313%
+
+
+
+instance: 3 label: pos
+
+aposterioriPos: -39.03553940104221 aposterioriNeg: -44.022389994365916
+probabilitesPos: 0.4699796838807337 probabilitesNeg: 0.5300203161192664
+CLASSIFICACAO POSITIVA COM 53.00203161192664%
+
+
+
+instance: 4 label: pos
+
+aposterioriPos: -35.19799041253881 aposterioriNeg: -41.914138554450375
+probabilitesPos: 0.45645206382003356 probabilitesNeg: 0.5435479361799663
+CLASSIFICACAO POSITIVA COM 54.354793617996634%
+
+
+
+instance: 5 label: pos
+
+aposterioriPos: -66.91007084464427 aposterioriNeg: -75.45374668452381
+probabilitesPos: 0.4699935138430484 probabilitesNeg: 0.5300064861569517
+CLASSIFICACAO POSITIVA COM 53.00064861569517%
+
+
+
+instance: 6 label: pos
+
+aposterioriPos: -73.01613583122673 aposterioriNeg: -86.57245027460753
+probabilitesPos: 0.4575273057611066 probabilitesNeg: 0.5424726942388933
+CLASSIFICACAO POSITIVA COM 54.247269423889335%
+
+
+
+instance: 7 label: pos
+
+aposterioriPos: -60.514000140377775 aposterioriNeg: -68.78840744397179
+probabilitesPos: 0.46800366111436764 probabilitesNeg: 0.5319963388856324
+CLASSIFICACAO POSITIVA COM 53.199633888563234%
+
+
+
+instance: 8 label: pos
+
+aposterioriPos: -87.62251989213264 aposterioriNeg: -101.53469527044818
+probabilitesPos: 0.4632258928998346 probabilitesNeg: 0.5367741071001654
+CLASSIFICACAO POSITIVA COM 53.67741071001654%
+
+
+
+instance: 9 label: pos
+
+aposterioriPos: -72.81511946788207 aposterioriNeg: -81.05556252472819
+probabilitesPos: 0.4732228292286315 probabilitesNeg: 0.5267771707713685
+CLASSIFICACAO POSITIVA COM 52.677717077136855%
+
+
+
+instance: 10 label: pos
+
+aposterioriPos: -52.309201292407636 aposterioriNeg: -62.62919227814538
+probabilitesPos: 0.4551064241236198 probabilitesNeg: 0.5448935758763802
+CLASSIFICACAO POSITIVA COM 54.48935758763802%
+
+
+
+instance: 11 label: pos
+
+aposterioriPos: -60.46046572832035 aposterioriNeg: -69.85224715274576
+probabilitesPos: 0.4639644466883399 probabilitesNeg: 0.53603555331166
+CLASSIFICACAO POSITIVA COM 53.603555331166%
+
+
+
+instance: 12 label: neg
+
+aposterioriPos: -68.75677102435644 aposterioriNeg: -73.03978081015687
+probabilitesPos: 0.4848973415418486 probabilitesNeg: 0.5151026584581514
+CLASSIFICACAO POSITIVA COM 51.51026584581514%
+
+
+
+instance: 13 label: neg
+
+aposterioriPos: -51.57494048446022 aposterioriNeg: -54.16839486388553
+probabilitesPos: 0.48773703150708364 probabilitesNeg: 0.5122629684929164
+CLASSIFICACAO POSITIVA COM 51.22629684929164%
+
+
+
+instance: 14 label: neg
+
+aposterioriPos: -29.13206712883726 aposterioriNeg: -33.62914477277725
+probabilitesPos: 0.4641731133953429 probabilitesNeg: 0.535826886604657
+CLASSIFICACAO POSITIVA COM 53.582688660465706%
+
+
+
+instance: 15 label: neg
+
+aposterioriPos: -44.89075489400048 aposterioriNeg: -48.157488633882636
+probabilitesPos: 0.48244602146141946 probabilitesNeg: 0.5175539785385805
+CLASSIFICACAO POSITIVA COM 51.75539785385806%
+
+
+
+instance: 16 label: neg
+
+aposterioriPos: -65.06091990572443 aposterioriNeg: -62.73167564169618
+probabilitesPos: 0.5091133772424394 probabilitesNeg: 0.4908866227575606
+CLASSIFICACAO NEGATIVA COM 50.91133772424394%
+
+
+
+instance: 17 label: neg
+
+aposterioriPos: -45.93776615777145 aposterioriNeg: -47.377691430231266
+probabilitesPos: 0.49228463692040586 probabilitesNeg: 0.5077153630795941
+CLASSIFICACAO POSITIVA COM 50.77153630795941%
+
+
+
+instance: 18 label: neg
+
+aposterioriPos: -36.499855825396835 aposterioriNeg: -38.760823565468
+probabilitesPos: 0.48497909028744696 probabilitesNeg: 0.5150209097125531
+CLASSIFICACAO POSITIVA COM 51.50209097125531%
+
+
+
+instance: 19 label: neg
+
+aposterioriPos: -62.40754043708086 aposterioriNeg: -66.89422166966988
+probabilitesPos: 0.48265034768480247 probabilitesNeg: 0.5173496523151975
+CLASSIFICACAO POSITIVA COM 51.734965231519745%
+
+
+
+instance: 20 label: neg
+
+aposterioriPos: -72.85148426611339 aposterioriNeg: -84.9842685358194
+probabilitesPos: 0.4615651585451258 probabilitesNeg: 0.5384348414548742
+CLASSIFICACAO POSITIVA COM 53.843484145487416%
+
+
+
+instance: 21 label: neg
+
+aposterioriPos: -47.93738884304075 aposterioriNeg: -50.04845449250166
+probabilitesPos: 0.4892277007698358 probabilitesNeg: 0.5107722992301642
+CLASSIFICACAO POSITIVA COM 51.07722992301642%
+
+
+
+instance: 22 label: neg
+
+aposterioriPos: -57.04084705467071 aposterioriNeg: -65.79766510786112
+probabilitesPos: 0.46435638180962346 probabilitesNeg: 0.5356436181903765
+CLASSIFICACAO POSITIVA COM 53.56436181903766%
+
+
+
+instance: 23 label: neg
+
+aposterioriPos: -48.898534553593905 aposterioriNeg: -53.21648521384744
+probabilitesPos: 0.47885741651870944 probabilitesNeg: 0.5211425834812906
+CLASSIFICACAO POSITIVA COM 52.11425834812906%
+
+
+
+instance: 24 label: neg
+
+aposterioriPos: -44.91921745581577 aposterioriNeg: -48.5698099402024
+probabilitesPos: 0.4804758238155437 probabilitesNeg: 0.5195241761844562
+CLASSIFICACAO POSITIVA COM 51.95241761844562%
+
+
+
+instance: 25 label: neg
+
+aposterioriPos: -37.21335609821501 aposterioriNeg: -40.37964842366466
+probabilitesPos: 0.4795967926170663 probabilitesNeg: 0.5204032073829338
+CLASSIFICACAO POSITIVA COM 52.040320738293374%
+
+
+
+instance: 26 label: neg
+
+aposterioriPos: -47.146770043174676 aposterioriNeg: -48.45680969953651
+probabilitesPos: 0.49314858470839995 probabilitesNeg: 0.5068514152916
+CLASSIFICACAO POSITIVA COM 50.685141529160006%
+
+
+
+
+---------------
+Matrix Confusion
+acertou positivo = 11
+errou positivo = 0
+
+acertou negativo = 1
+errou negativo = 14
+
+acuracia = 46.153843%

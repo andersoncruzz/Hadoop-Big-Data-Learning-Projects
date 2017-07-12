@@ -1,1 +1,0 @@
-hadoop jar target/seminariofinal-1.0-SNAPSHOT-fatjar.jar br.edu.ufam.andersoncruzz.BuildInvertedIndexCompressed -input merge.txt -output mergeoutput -reducers 5
